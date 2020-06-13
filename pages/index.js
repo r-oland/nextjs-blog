@@ -1,47 +1,52 @@
+/**
+ * Import helpers and GetStaticProps type
+ */
+import { getGithubPreviewProps, parseJson } from "next-tinacms-github";
 import Head from "next/head";
-import Link from "next/link";
-import styled from "styled-components";
-import { getSortedPostsData } from "../lib/posts";
 
-const Wrapper = styled.div``;
+export default function Home({ file }) {
+  const data = file.data;
 
-const A = styled.a`
-  display: block;
-  cursor: pointer;
-`;
-
-export default function Home({ allPostsData }) {
   return (
-    <Wrapper>
+    <div className="container">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section>
-        <h2>Blog</h2>
-        <ul>
-          {allPostsData.map(({ id, date, title }) => (
-            <div key={id} style={{ marginBottom: "1em" }}>
-              <Link as={`posts/${id}`} href="posts/[id]">
-                <A>{`visit ${title}`}</A>
-              </Link>
-
-              <br />
-              {date}
-            </div>
-          ))}
-        </ul>
-      </section>
-    </Wrapper>
+      <main>
+        <h1 className="title">
+          {/**
+           * Render the title from `home.json`
+           */}
+          {data.title}
+        </h1>
+        //...
+      </main>
+      //...
+    </div>
   );
 }
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-
+/**
+ * Fetch data with getStaticProps based on 'preview' mode
+ */
+export const getStaticProps = async function ({ preview, previewData }) {
+  if (preview) {
+    return getGithubPreviewProps({
+      ...previewData,
+      fileRelativePath: "content/home.json",
+      parse: parseJson,
+    });
+  }
   return {
     props: {
-      allPostsData,
+      sourceProvider: null,
+      error: null,
+      preview: false,
+      file: {
+        fileRelativePath: "content/home.json",
+        data: (await import("../content/home.json")).default,
+      },
     },
   };
-}
+};
