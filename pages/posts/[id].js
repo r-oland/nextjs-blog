@@ -1,17 +1,17 @@
 // Components==============
 import Head from "next/head";
+import Link from "next/link";
 import styled from "styled-components";
 import { getAllPostIds, getPostData } from "../../lib/posts";
-import A from "../../single-components/A";
 import Date from "../../single-components/Date";
-
 // =========================
 
-const Wrapper = styled.div`
-  .Link {
-    display: block;
-    font-size: 20px;
-  }
+const Wrapper = styled.div``;
+
+const A = styled.a`
+  display: block;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 export default function Post({ postData }) {
@@ -20,7 +20,9 @@ export default function Post({ postData }) {
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <A to="/">Back to home</A>
+      <Link href="/">
+        <A>Back to home</A>
+      </Link>
       {postData.title}
       <br />
       {postData.id}

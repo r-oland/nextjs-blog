@@ -1,12 +1,13 @@
 import Head from "next/head";
+import Link from "next/link";
 import styled from "styled-components";
 import { getSortedPostsData } from "../lib/posts";
-import A from "../single-components/A";
 
-const Wrapper = styled.div`
-  .Link {
-    display: block;
-  }
+const Wrapper = styled.div``;
+
+const A = styled.a`
+  display: block;
+  cursor: pointer;
 `;
 
 export default function Home({ allPostsData }) {
@@ -21,8 +22,10 @@ export default function Home({ allPostsData }) {
         <ul>
           {allPostsData.map(({ id, date, title }) => (
             <div key={id} style={{ marginBottom: "1em" }}>
-              <A to={`posts/${id}`}>{`visit ${title}`}</A>
-              {id}
+              <Link as={`posts/${id}`} href="posts/[id]">
+                <A>{`visit ${title}`}</A>
+              </Link>
+
               <br />
               {date}
             </div>
