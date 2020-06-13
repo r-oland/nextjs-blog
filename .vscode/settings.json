@@ -1,0 +1,33 @@
+{
+  "files.exclude": {
+    ".env": true,
+    ".cache": true,
+    ".next": true,
+    "node_modules": true,
+    ".gitignore": true,
+    "desktop.ini": true,
+    "package-lock.json": true,
+    "package.json": true,
+    ".babelrc": true
+  },
+
+  "files.associations": {
+    "*.js": "javascriptreact"
+  },
+
+  "vsicons.associations.folders": [
+    {
+      "icon": "config",
+      "extensions": ["react"]
+    },
+    {
+      "icon": "paket",
+      "extensions": ["global-components"]
+    },
+    {
+      "icon": "component",
+      "extensions": ["micro-components"]
+    }
+  ],
+  "cSpell.language": "nl, en"
+}
